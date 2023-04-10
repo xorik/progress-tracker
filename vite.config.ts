@@ -8,6 +8,9 @@ import Components from 'unplugin-vue-components/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  json: {
+    stringify: true,
+  },
   plugins: [
     vue(),
     Components({
@@ -19,9 +22,13 @@ export default defineConfig({
       autoInstall: true,
     }),
   ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          icons: ['src/assets/icons.json'],
+        },
+      },
     }
-  }
+  },
 })

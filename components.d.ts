@@ -9,8 +9,17 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    ICarbonBee: typeof import('~icons/carbon/bee')['default']
+    CategoryModal: typeof import('./src/components/settings/CategoryModal.vue')['default']
+    Icon: typeof import('./src/components/Icon.vue')['default']
+    IconModal: typeof import('./src/components/IconModal.vue')['default']
+    IGameIconsProgression: typeof import('~icons/game-icons/progression')['default']
+    IPhFloppyDiskLight: typeof import('~icons/ph/floppy-disk-light')['default']
+    IPhGearFineLight: typeof import('~icons/ph/gear-fine-light')['default']
+    IPhPencilSimpleLineLight: typeof import('~icons/ph/pencil-simple-line-light')['default']
+    IPhPlusLight: typeof import('~icons/ph/plus-light')['default']
+    IPhTrashLight: typeof import('~icons/ph/trash-light')['default']
+    Modal: typeof import('./src/components/Modal.vue')['default']
+    Navbar: typeof import('./src/components/Navbar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
