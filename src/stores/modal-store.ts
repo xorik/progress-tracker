@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
-import { ref, watch } from 'vue'
+import { reactive, ref, watch } from 'vue'
 import type { Category } from '../api/categories-api'
+import type { CreateGoalDto, Goal } from '../api/goals-api'
+import { useCategoriesStore } from './categories-store'
 
 const useModalStore = function<T> (initFn: (input: T) => void = () => {}) {
   const resolve = ref<(value: T) => void>(() => {})
@@ -64,4 +66,32 @@ export const useCategoriesModalStore = defineStore('categories-modal', () => {
   }
 
   return {icon, title, resolve, reject, openModal, isOpen, openIconModal}
+})
+
+export const useGoalModalStore = defineStore('goal-modal', () => {
+  const iconModalStore = useIconModalStore()
+  const goal = reactive<CreateGoalDto>({
+    title: '',
+    icon: 'flag-banner',
+    categoryId: '',
+    goalType: 'maximize',
+    goalValue: 10
+  })
+
+  const {resolve, reject, openModal, isOpen} = useModalStore<CreateGoalDto>(g => {
+    goal.title = g.title
+    goal.icon = g.icon
+    goal.categoryId = g.categoryId
+    goal.goalType = g.goalType
+    goal.goalValue = g.goalValue
+  })
+
+  const openIconModal = async function (i: string) {
+    try {
+      goal.icon = await iconModalStore.openModal(i)
+    } catch (e) {
+    }
+  }
+
+  return {goal, resolve, reject, openModal, isOpen, openIconModal}
 })

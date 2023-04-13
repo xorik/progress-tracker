@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useCategoriesStore } from '../stores/categories-store'
 import { useSettings } from '../composables/settings'
+import { useGoalsStore } from '../stores/goals-store'
 
 const categoriesStore = useCategoriesStore()
-const {openCategoryModal, createCategory, deleteCategory} = useSettings()
+const goalsStore = useGoalsStore()
+const {editCategory, createCategory, deleteCategory, editGoal, createGoal, deleteGoal} = useSettings()
 
 </script>
 
@@ -18,15 +20,25 @@ const {openCategoryModal, createCategory, deleteCategory} = useSettings()
   <div v-for="c in categoriesStore.items" class="flex items-center gap-2 my-2">
     <Icon :icon="c.icon" class="text-3xl"/>
     <span class="flex-1">{{c.title}}</span>
-    <span class="btn btn-ghost px-2" @click="openCategoryModal(c)"><i-ph-pencil-simple-line-light class="text-xl"/></span>
+    <span class="btn btn-ghost px-2" @click="editCategory(c)"><i-ph-pencil-simple-line-light class="text-xl"/></span>
     <span class="btn btn-ghost px-2 text-error" @click="deleteCategory(c.id)"><i-ph-trash-light class="text-xl"/></span>
   </div>
 
-  <div class="flex mt-12">
-    <h3 class="flex-1">Goals</h3>
-    <span class="btn btn-outline normal-case"><i-ph-plus-light class="text-xl mr-2"/>Add goal</span>
+  <div v-if="goalsStore.items.length > 0">
+    <div class="flex mt-12">
+      <h3 class="flex-1">Goals</h3>
+      <span class="btn btn-outline normal-case" @click="createGoal"><i-ph-plus-light class="text-xl mr-2"/>Add goal</span>
+    </div>
+
+    <div v-for="g in goalsStore.items" class="flex items-center gap-2 my-2">
+      <Icon :icon="g.icon" class="text-3xl"/>
+      <span class="flex-1">{{g.title}}</span>
+      <span class="btn btn-ghost px-2" @click="editGoal(g.id, g)"><i-ph-pencil-simple-line-light class="text-xl"/></span>
+      <span class="btn btn-ghost px-2 text-error" @click="deleteGoal(g.id)"><i-ph-trash-light class="text-xl"/></span>
+    </div>
   </div>
 
   <CategoryModal/>
+  <GoalModal/>
   <IconModal/>
 </template>

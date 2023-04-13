@@ -10,6 +10,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     CategoryModal: typeof import('./src/components/settings/CategoryModal.vue')['default']
+    GoalModal: typeof import('./src/components/settings/GoalModal.vue')['default']
     Icon: typeof import('./src/components/Icon.vue')['default']
     IconModal: typeof import('./src/components/IconModal.vue')['default']
     IGameIconsProgression: typeof import('~icons/game-icons/progression')['default']
