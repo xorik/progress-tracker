@@ -17,3 +17,7 @@ h2 {
 h3 {
   @apply text-2xl;
 }
+
+.btn {
+  @apply normal-case;
+}

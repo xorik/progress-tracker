@@ -24,7 +24,7 @@ const {editCategory, createCategory, deleteCategory, editGoal, createGoal, delet
     <span class="btn btn-ghost px-2 text-error" @click="deleteCategory(c.id)"><i-ph-trash-light class="text-xl"/></span>
   </div>
 
-  <div v-if="goalsStore.items.length > 0">
+  <div v-if="categoriesStore.items.length > 0">
     <div class="flex mt-12">
       <h3 class="flex-1">Goals</h3>
       <span class="btn btn-outline normal-case" @click="createGoal"><i-ph-plus-light class="text-xl mr-2"/>Add goal</span>

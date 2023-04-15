@@ -6,13 +6,13 @@ export interface Category {
 
 class CategoriesApi {
   public async get(): Promise<Category[]> {
-    const data = await fetch('http://127.0.0.1:8000/api/categories')
+    const data = await fetch('https://progress.xorik.dev/api/categories')
 
     return data.json()
   }
 
   public async create(category: Omit<Category,"id">): Promise<Category> {
-    const data = await fetch('http://127.0.0.1:8000/api/categories', {
+    const data = await fetch('https://progress.xorik.dev/api/categories', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -24,7 +24,7 @@ class CategoriesApi {
   }
 
   public async update(category: Category): Promise<Category> {
-    const data = await fetch('http://127.0.0.1:8000/api/categories/' + category.id, {
+    const data = await fetch('https://progress.xorik.dev/api/categories/' + category.id, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json'
@@ -36,7 +36,7 @@ class CategoriesApi {
   }
 
   public async delete(id: string): Promise<void> {
-    await fetch('http://127.0.0.1:8000/api/categories/' + id, {
+    await fetch('https://progress.xorik.dev/api/categories/' + id, {
       method: 'DELETE',
     })
 

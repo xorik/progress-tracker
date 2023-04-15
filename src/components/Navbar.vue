@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-neutral text-neutral-content fixed">
+  <div class="navbar bg-neutral text-neutral-content fixed z-50">
     <div class="flex-1">
       <RouterLink to="/" class="btn btn-ghost text-3xl"><i-game-icons-progression/></RouterLink>
     </div>

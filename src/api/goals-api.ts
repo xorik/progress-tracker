@@ -19,13 +19,13 @@ export interface CreateGoalDto {
 
 class GoalsApi {
   public async get(): Promise<Goal[]> {
-    const data = await fetch('http://127.0.0.1:8000/api/goals')
+    const data = await fetch('https://progress.xorik.dev/api/goals')
 
     return data.json()
   }
 
   public async create(goal: CreateGoalDto): Promise<Goal> {
-    const data = await fetch('http://127.0.0.1:8000/api/goals', {
+    const data = await fetch('https://progress.xorik.dev/api/goals', {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -37,7 +37,7 @@ class GoalsApi {
   }
 
   public async update(id: string, goal: CreateGoalDto): Promise<Goal> {
-    const data = await fetch('http://127.0.0.1:8000/api/goals/' + id, {
+    const data = await fetch('https://progress.xorik.dev/api/goals/' + id, {
       method: 'PUT',
       headers: {
         'content-type': 'application/json'
@@ -49,7 +49,7 @@ class GoalsApi {
   }
 
   public async delete(id: string): Promise<void> {
-    await fetch('http://127.0.0.1:8000/api/goals/' + id, {
+    await fetch('https://progress.xorik.dev/api/goals/' + id, {
       method: 'DELETE',
     })
 
