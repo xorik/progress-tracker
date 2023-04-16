@@ -2,9 +2,11 @@
 import { ref } from 'vue'
 import { useGoalsStore } from '../stores/goals-store'
 import { useHomepage } from '../composables/home'
+import { useStatsStore } from '../stores/stats-store'
 
 const category = ref<string|null>(null)
 const goalsStore = useGoalsStore()
+const statsStore = useStatsStore()
 const {createEvent} = useHomepage()
 </script>
 
@@ -23,7 +25,7 @@ const {createEvent} = useHomepage()
       <div class="flex gap-4 text-right">
         <div>
           <div class="stat-title">Today</div>
-          <div class="stat-value">?</div>
+          <div class="stat-value">{{statsStore.today[g.id] ?? 0}}</div>
           <div class="stat-desc">
             <div class="flex">
               <i-ph-trophy-bold/>
@@ -35,7 +37,7 @@ const {createEvent} = useHomepage()
         </div>
         <div>
           <div class="stat-title">Week</div>
-          <div class="stat-value text-success">?</div>
+          <div class="stat-value">{{statsStore.week[g.id] ?? 0}}</div>
           <div class="stat-desc">?%</div>
         </div>
         <div class="flex-1">
