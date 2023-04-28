@@ -1,3 +1,5 @@
+import { httpClient } from './base-api'
+
 export interface StatItem {
   goalId: string
   eventCount: number
@@ -10,9 +12,7 @@ interface StatResponse {
 
 class StatsApi {
   public async get(): Promise<StatResponse> {
-    const data = await fetch('https://progress.xorik.dev/api/stats')
-
-    return data.json()
+    return httpClient.get('/api/stats')
   }
 }
 

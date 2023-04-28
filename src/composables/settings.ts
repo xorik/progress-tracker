@@ -3,6 +3,10 @@ import type { Category } from '../api/categories-api'
 import { useCategoriesModalStore, useGoalModalStore } from '../stores/modal-store'
 import { useGoalsStore } from '../stores/goals-store'
 import type { CreateGoalDto, Goal } from '../api/goals-api'
+import { httpClient } from '../api/base-api'
+import { categoriesApi } from '../api/categories-api'
+import { useAuthStore } from '../stores/auth-store'
+import { ref, toRefs } from 'vue'
 
 export function useSettings() {
   const categoriesStore = useCategoriesStore()
@@ -32,7 +36,7 @@ export function useSettings() {
 
   const editGoal = async function (id: string, goal: Goal) {
     try {
-      const savedCategory = await goalsModalStore.openModal({categoryId: goal.category.id, ...goal})
+      const savedCategory = await goalsModalStore.openModal(goal)
       await goalsStore.updateGoal(id, savedCategory)
     } catch (e) {
     }
@@ -57,6 +61,35 @@ export function useSettings() {
     await goalsStore.deleteGoal(id)
   }
 
-
   return {editCategory, createCategory, deleteCategory, editGoal, createGoal, deleteGoal}
+}
+
+export function useApiKeySettings() {
+  const authStore = useAuthStore()
+  const key = ref(authStore.apiKey ?? '')
+  const showKey = ref(false)
+  const {isAuthorized} = toRefs(authStore)
+  const isInvalidKey = ref(false)
+
+  const login = async function () {
+    httpClient.setApiKey(key.value)
+    isInvalidKey.value = false
+
+    // Trying to use key, before saving it
+    try {
+      await categoriesApi.get()
+      authStore.apiKey = key.value
+    } catch (e) {
+      httpClient.setApiKey(undefined)
+      isInvalidKey.value = true
+    }
+  }
+
+  const logout = async function() {
+    key.value = ''
+    authStore.apiKey = null
+    httpClient.setApiKey(undefined)
+  }
+
+  return {login, logout, key, showKey, isInvalidKey, isAuthorized}
 }

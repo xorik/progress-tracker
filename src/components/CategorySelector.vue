@@ -13,7 +13,7 @@ const category = useVModel(props, 'modelValue', emit)
 </script>
 
 <template>
-  <ul class="menu menu-horizontal bg-base-100 rounded-box shadow-md">
+  <ul class="menu menu-horizontal bg-base-100 rounded-box shadow-md" v-if="categoriesStore.items.length > 0">
     <li><a @click="category = null" :class="{active: category === null}">All</a></li>
     <li v-for="c in categoriesStore.items">
       <a @click="category = c.id" :class="{active: category === c.id}">

@@ -1,3 +1,5 @@
+import { httpClient } from './base-api'
+
 export interface Category {
   id: string
   title: string
@@ -6,41 +8,19 @@ export interface Category {
 
 class CategoriesApi {
   public async get(): Promise<Category[]> {
-    const data = await fetch('https://progress.xorik.dev/api/categories')
-
-    return data.json()
+    return httpClient.get('/api/categories')
   }
 
   public async create(category: Omit<Category,"id">): Promise<Category> {
-    const data = await fetch('https://progress.xorik.dev/api/categories', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(category)
-    })
-
-    return data.json()
+    return httpClient.get('/api/categories', 'POST', category)
   }
 
   public async update(category: Category): Promise<Category> {
-    const data = await fetch('https://progress.xorik.dev/api/categories/' + category.id, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(category)
-    })
-
-    return data.json()
+    return httpClient.get('/api/categories/' + category.id, 'PUT', category)
   }
 
   public async delete(id: string): Promise<void> {
-    await fetch('https://progress.xorik.dev/api/categories/' + id, {
-      method: 'DELETE',
-    })
-
-    return
+    return httpClient.get('/api/categories/' + id, 'DELETE')
   }
 }
 

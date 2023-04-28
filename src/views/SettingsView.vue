@@ -2,7 +2,9 @@
 import { useCategoriesStore } from '../stores/categories-store'
 import { useSettings } from '../composables/settings'
 import { useGoalsStore } from '../stores/goals-store'
+import { useAuthStore } from '../stores/auth-store'
 
+const authStore = useAuthStore()
 const categoriesStore = useCategoriesStore()
 const goalsStore = useGoalsStore()
 const {editCategory, createCategory, deleteCategory, editGoal, createGoal, deleteGoal} = useSettings()
@@ -12,7 +14,7 @@ const {editCategory, createCategory, deleteCategory, editGoal, createGoal, delet
 <template>
   <h1>Settings</h1>
 
-  <div class="flex">
+  <div class="flex" v-if="authStore.isAuthorized">
     <h3 class="flex-1">Categories</h3>
     <span class="btn btn-outline normal-case" @click="createCategory()"><i-ph-plus-light class="text-xl mr-2"/>Add category</span>
   </div>
@@ -37,6 +39,8 @@ const {editCategory, createCategory, deleteCategory, editGoal, createGoal, delet
       <span class="btn btn-ghost px-2 text-error" @click="deleteGoal(g.id)"><i-ph-trash-light class="text-xl"/></span>
     </div>
   </div>
+
+  <ApiKeySettings/>
 
   <CategoryModal/>
   <GoalModal/>

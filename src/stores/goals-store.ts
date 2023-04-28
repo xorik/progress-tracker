@@ -1,13 +1,21 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import type { CreateGoalDto, Goal } from '../api/goals-api'
 import { goalsApi } from '../api/goals-api'
+import { useAuthStore } from './auth-store'
 
 export const useGoalsStore = defineStore('goals', () => {
+  const {isAuthorized} = toRefs(useAuthStore())
   const data = ref<Goal[]>([])
-  goalsApi.get().then(goals => {
-    data.value = goals
-  })
+
+  // Update goals when auth status is changed
+  watch(isAuthorized, async (isAuthorized) => {
+    if (isAuthorized) {
+      data.value = await goalsApi.get()
+    } else {
+      data.value = []
+    }
+  }, {immediate: true})
 
   const createGoal = async function (goal: CreateGoalDto) {
     const newGoal = await goalsApi.create(goal)

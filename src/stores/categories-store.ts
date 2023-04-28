@@ -1,13 +1,21 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, toRefs, watch } from 'vue'
 import type { Category } from '../api/categories-api'
 import { categoriesApi } from '../api/categories-api'
+import { useAuthStore } from './auth-store'
 
 export const useCategoriesStore = defineStore('categories', () => {
+  const {isAuthorized} = toRefs(useAuthStore())
   const data = ref<Category[]>([])
-  categoriesApi.get().then(categories => {
-    data.value = categories
-  })
+
+  // Update categories when auth status is changed
+  watch(isAuthorized, async (isAuthorized) => {
+    if (isAuthorized) {
+        data.value = await categoriesApi.get()
+    } else {
+      data.value = []
+    }
+  }, {immediate: true})
 
   const createCategory = async function (category: Omit<Category,"id">) {
     const newCategory = await categoriesApi.create(category)

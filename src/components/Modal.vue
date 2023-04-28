@@ -18,7 +18,7 @@ watch(isOpen, newValue => {
 <template>
   <input type="checkbox" :id="id" class="modal-toggle" v-model="isOpen"/>
 
-  <label :for="id" class="modal cursor-pointer">
+  <label :for="id" class="modal backdrop-blur-sm cursor-pointer">
     <label class="modal-box" :class="extraClass" for="">
       <slot></slot>
     </label>

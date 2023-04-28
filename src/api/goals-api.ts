@@ -1,10 +1,11 @@
 import type { Category } from './categories-api'
+import { httpClient } from './base-api'
 
 export interface Goal {
   id: string
   title: string
   icon: string
-  category: Category
+  categoryId: string
   goalType: 'maximize'|'minimize'
   goalValue: number
 }
@@ -19,41 +20,19 @@ export interface CreateGoalDto {
 
 class GoalsApi {
   public async get(): Promise<Goal[]> {
-    const data = await fetch('https://progress.xorik.dev/api/goals')
-
-    return data.json()
+    return httpClient.get('/api/goals')
   }
 
   public async create(goal: CreateGoalDto): Promise<Goal> {
-    const data = await fetch('https://progress.xorik.dev/api/goals', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(goal)
-    })
-
-    return data.json()
+    return httpClient.get('/api/goals', 'POST', goal)
   }
 
   public async update(id: string, goal: CreateGoalDto): Promise<Goal> {
-    const data = await fetch('https://progress.xorik.dev/api/goals/' + id, {
-      method: 'PUT',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(goal)
-    })
-
-    return data.json()
+    return httpClient.get('/api/goals/' + id, 'PUT', goal)
   }
 
   public async delete(id: string): Promise<void> {
-    await fetch('https://progress.xorik.dev/api/goals/' + id, {
-      method: 'DELETE',
-    })
-
-    return
+    return httpClient.get('/api/goals/' + id, 'DELETE')
   }
 }
 

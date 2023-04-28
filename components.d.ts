@@ -9,6 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ApiKeySettings: typeof import('./src/components/settings/ApiKeySettings.vue')['default']
     CategoryModal: typeof import('./src/components/settings/CategoryModal.vue')['default']
     CategorySelector: typeof import('./src/components/CategorySelector.vue')['default']
     GoalModal: typeof import('./src/components/settings/GoalModal.vue')['default']
@@ -17,10 +18,12 @@ declare module '@vue/runtime-core' {
     IGameIconsProgression: typeof import('~icons/game-icons/progression')['default']
     IPhArrowDownRightBold: typeof import('~icons/ph/arrow-down-right-bold')['default']
     IPhArrowUpRightBold: typeof import('~icons/ph/arrow-up-right-bold')['default']
+    IPhEyeLight: typeof import('~icons/ph/eye-light')['default']
     IPhFloppyDiskLight: typeof import('~icons/ph/floppy-disk-light')['default']
     IPhGearFineLight: typeof import('~icons/ph/gear-fine-light')['default']
     IPhPencilSimpleLineLight: typeof import('~icons/ph/pencil-simple-line-light')['default']
     IPhPlusLight: typeof import('~icons/ph/plus-light')['default']
+    IPhSignOutLight: typeof import('~icons/ph/sign-out-light')['default']
     IPhTrashLight: typeof import('~icons/ph/trash-light')['default']
     IPhTrophyBold: typeof import('~icons/ph/trophy-bold')['default']
     Modal: typeof import('./src/components/Modal.vue')['default']

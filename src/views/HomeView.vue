@@ -16,7 +16,7 @@ const {createEvent} = useHomepage()
   </div>
 
   <template v-for="g in goalsStore.items">
-    <div v-if="category === null || g.category.id === category" class="my-2">
+    <div v-if="category === null || g.categoryId === category" class="my-2">
       <div class="flex items-center">
         <Icon :icon="g.icon" class="text-2xl mr-3 text-accent"/>
         <h3 class="text-xl">{{g.title}}</h3>
