@@ -18,7 +18,7 @@ const {createEvent} = useHomepage()
   <template v-for="g in goalsStore.items">
     <div v-if="category === null || g.categoryId === category" class="my-2">
       <div class="flex items-center">
-        <Icon :icon="g.icon" class="text-2xl mr-3 text-accent"/>
+        <Icon :icon="g.icon" class="text-2xl mr-3 text-primary"/>
         <h3 class="text-xl">{{g.title}}</h3>
       </div>
 
@@ -42,7 +42,7 @@ const {createEvent} = useHomepage()
         </div>
         <div class="flex-1">
           <div class="btn-group w-full">
-            <span class="btn btn-lg btn-outline btn-accent flex-1" @click="createEvent(g.id)">Track</span>
+            <span class="btn btn-lg btn-outline btn-primary flex-1" @click="createEvent(g.id)">Track</span>
           </div>
         </div>
       </div>

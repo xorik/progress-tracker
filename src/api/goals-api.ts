@@ -10,13 +10,7 @@ export interface Goal {
   goalValue: number
 }
 
-export interface CreateGoalDto {
-  title: string
-  icon: string
-  categoryId: string
-  goalType: 'maximize'|'minimize'
-  goalValue: number
-}
+export type CreateGoalDto = Omit<Goal, "id">
 
 class GoalsApi {
   public async get(): Promise<Goal[]> {

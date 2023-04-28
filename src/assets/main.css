@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 h1, h2, h3 {
-  @apply font-bold text-accent my-2;
+  @apply font-bold text-primary my-2;
 }
 
 h1 {

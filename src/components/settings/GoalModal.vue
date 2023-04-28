@@ -49,7 +49,7 @@ const categoriesStore = useCategoriesStore()
     </div>
 
     <div class="text-right mt-12">
-      <span class="btn btn-accent text" @click="resolve(goal)"><i-ph-floppy-disk-light class="text-xl mr-2"/>Save</span>
+      <span class="btn btn-primary btn-outline" @click="resolve(goal)"><i-ph-floppy-disk-light class="text-xl mr-2"/>Save</span>
     </div>
   </Modal>
 </template>

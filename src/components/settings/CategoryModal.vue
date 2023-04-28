@@ -22,7 +22,7 @@ const {icon, title, resolve, isOpen, openIconModal} = toRefs(useCategoriesModalS
   <input type="text" v-model="title" class="input input-bordered w-full max-w-md" />
 
   <div class="text-right mt-12">
-    <span class="btn btn-accent text" @click="resolve({icon, title})"><i-ph-floppy-disk-light class="text-xl mr-2"/>Save</span>
+    <span class="btn btn-primary btn-outline text" @click="resolve({icon, title})"><i-ph-floppy-disk-light class="text-xl mr-2"/>Save</span>
   </div>
 </Modal>
 </template>

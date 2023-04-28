@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
-import { reactive, ref, watch } from 'vue'
+import { reactive, ref, toRaw, watch } from 'vue'
 import type { Category } from '../api/categories-api'
 import type { CreateGoalDto, Goal } from '../api/goals-api'
 import { useCategoriesStore } from './categories-store'
+import { useThemeStore } from './theme-store'
+import type { BasicColorSchema } from '@vueuse/core'
 
 const useModalStore = function<T> (initFn: (input: T) => void = () => {}) {
   const resolve = ref<(value: T) => void>(() => {})
@@ -94,4 +96,29 @@ export const useGoalModalStore = defineStore('goal-modal', () => {
   }
 
   return {goal, resolve, reject, openModal, isOpen, openIconModal}
+})
+
+interface ThemeConfig {
+  mode: BasicColorSchema
+  index: number
+}
+
+export const useThemeModalStore = defineStore('theme-modal', () => {
+  const themeStore = useThemeStore()
+  const {resolve, reject, openModal, isOpen} = useModalStore<ThemeConfig>()
+
+  const openThemeModal = async function () {
+    const oldMode = toRaw(themeStore.colorMode)
+    const oldIndex = toRaw(themeStore.colorIndex)
+
+    try {
+      await openModal({mode: oldMode, index: oldIndex})
+    } catch (e) {
+      // Restore old values if modal was closed without saving
+      themeStore.colorMode = oldMode
+      themeStore.colorIndex = oldIndex
+    }
+  }
+
+  return {resolve, reject, openThemeModal, isOpen}
 })
