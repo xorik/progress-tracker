@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { toRefs } from 'vue'
-import { useThemeModalStore } from '../stores/modal-store'
-
-const {openThemeModal} = toRefs(useThemeModalStore())
+import { openThemeModal } from '../composables/use-theme'
 </script>
 
 <template>

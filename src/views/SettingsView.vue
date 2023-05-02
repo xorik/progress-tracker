@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { useCategoriesStore } from '../stores/categories-store'
-import { useSettings } from '../composables/settings'
 import { useGoalsStore } from '../stores/goals-store'
 import { useAuthStore } from '../stores/auth-store'
+import {useCategoriesSettings, useGoalSettings} from "../composables/use-settings";
 
+// TODO: don't use store directly
 const authStore = useAuthStore()
 const categoriesStore = useCategoriesStore()
 const goalsStore = useGoalsStore()
-const {editCategory, createCategory, deleteCategory, editGoal, createGoal, deleteGoal} = useSettings()
-
+const {editGoal, createGoal, deleteGoal} = useGoalSettings()
+const {editCategory, createCategory, deleteCategory} = useCategoriesSettings()
 </script>
 
 <template>

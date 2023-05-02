@@ -1,5 +1,10 @@
 import icons from '../assets/icons.json'
-export function useIconSelector() {
+import { useModal } from './use-modal'
+
+
+export const iconModal = useModal<string>('flag-banner')
+
+export function useIconModal() {
   const categories = [
     "arrows",
     "brands",
@@ -32,5 +37,5 @@ export function useIconSelector() {
 
   const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
 
-  return {objectsByCategory, capitalize}
+  return {objectsByCategory, capitalize, icons, ...iconModal}
 }

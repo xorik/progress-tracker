@@ -1,22 +1,55 @@
 import { useCategoriesStore } from '../stores/categories-store'
-import type { Category } from '../api/categories-api'
-import { useCategoriesModalStore, useGoalModalStore } from '../stores/modal-store'
+import type { Category, CreateCategoryDto } from '../api/categories-api'
 import { useGoalsStore } from '../stores/goals-store'
-import type { CreateGoalDto, Goal } from '../api/goals-api'
+import type {CreateGoalDto, Goal} from '../api/goals-api'
 import { httpClient } from '../api/base-api'
 import { categoriesApi } from '../api/categories-api'
 import { useAuthStore } from '../stores/auth-store'
-import { ref, toRefs } from 'vue'
+import {ref, toRef} from 'vue'
+import { useModal } from './use-modal'
+import {iconModal} from "./use-icon-modal";
 
-export function useSettings() {
+const categoriesModal = useModal<CreateCategoryDto>({
+  title: '',
+  icon: 'flag-banner',
+})
+
+const goalsModal = useModal<CreateGoalDto>({
+  title: '',
+  icon: 'flag-banner',
+  categoryId: '',
+  goalType: 'maximize',
+  goalValue: 0,
+})
+
+export function useCategoriesModal() {
+  const pickIcon = async function (icon: string) {
+    try {
+      categoriesModal.data.value.icon = await iconModal.openModal(icon)
+    } catch (e) {
+    }
+  }
+
+  return {pickIcon, ...categoriesModal}
+}
+
+export function useGoalsModal() {
+  const pickIcon = async function (icon: string) {
+    try {
+      goalsModal.data.value.icon = await iconModal.openModal(icon)
+    } catch (e) {
+    }
+  }
+
+  return {pickIcon, ...goalsModal}
+}
+
+export function useCategoriesSettings() {
   const categoriesStore = useCategoriesStore()
-  const goalsStore = useGoalsStore()
-  const categoriesModalStore = useCategoriesModalStore()
-  const goalsModalStore = useGoalModalStore()
 
   const editCategory = async function (category: Category) {
     try {
-      const savedCategory = await categoriesModalStore.openModal(category)
+      const savedCategory = await categoriesModal.openModal(category)
       await categoriesStore.updateCategory({id: category.id, ...savedCategory})
     } catch (e) {
     }
@@ -24,7 +57,7 @@ export function useSettings() {
 
   const createCategory = async function () {
     try {
-      const newCategory = await categoriesModalStore.openModal({title: '', icon: 'flag-banner'})
+      const newCategory = await categoriesModal.openModal({title: '', icon: 'flag-banner'})
       await categoriesStore.createCategory(newCategory)
     } catch (e) {
     }
@@ -34,9 +67,16 @@ export function useSettings() {
     await categoriesStore.deleteCategory(id)
   }
 
+  return {editCategory, createCategory, deleteCategory}
+}
+
+export function useGoalSettings() {
+  const categoriesStore = useCategoriesStore()
+  const goalsStore = useGoalsStore()
+
   const editGoal = async function (id: string, goal: Goal) {
     try {
-      const savedCategory = await goalsModalStore.openModal(goal)
+      const savedCategory = await goalsModal.openModal(goal)
       await goalsStore.updateGoal(id, savedCategory)
     } catch (e) {
     }
@@ -44,7 +84,7 @@ export function useSettings() {
 
   const createGoal = async function () {
     try {
-      const newGoal = await goalsModalStore.openModal({
+      const newGoal = await goalsModal.openModal({
         title: '',
         icon: 'flag-banner',
         categoryId: categoriesStore.items[0].id,
@@ -61,14 +101,14 @@ export function useSettings() {
     await goalsStore.deleteGoal(id)
   }
 
-  return {editCategory, createCategory, deleteCategory, editGoal, createGoal, deleteGoal}
+  return {editGoal, createGoal, deleteGoal}
 }
 
 export function useApiKeySettings() {
   const authStore = useAuthStore()
   const key = ref(authStore.apiKey ?? '')
   const showKey = ref(false)
-  const {isAuthorized} = toRefs(authStore)
+  const isAuthorized = toRef(authStore, 'isAuthorized')
   const isInvalidKey = ref(false)
 
   const login = async function () {

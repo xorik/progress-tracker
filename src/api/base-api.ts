@@ -21,6 +21,11 @@ class HttpClient {
       throw new Error('API responded with HTTP code: ' + data.status)
     }
 
+    // Don't parse body if there's no body
+    if (data.status === 204) {
+      return null as any
+    }
+
     return data.json()
   }
 

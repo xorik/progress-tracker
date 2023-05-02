@@ -49,6 +49,7 @@ export const colors = {
   dark: darkColors.map(hexToHsl),
 };
 
+// TODO: move logic from store into composable
 export const useThemeStore = defineStore('theme', () => {
   const colorIndex = useLocalStorage('theme-color', 7)
   const previewIndex = ref<number|null>(null)

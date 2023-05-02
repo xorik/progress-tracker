@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useApiKeySettings } from '../../composables/settings'
+import { useApiKeySettings } from '../../composables/use-settings'
 
 const {login, logout, key, showKey, isInvalidKey, isAuthorized} = useApiKeySettings()
 </script>

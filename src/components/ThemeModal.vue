@@ -1,10 +1,7 @@
 <script setup lang="ts">
-import { toRefs } from 'vue'
-import { useThemeModalStore } from '../stores/modal-store'
-import { useThemeStore } from '../stores/theme-store'
+import { useThemeModal} from "../composables/use-theme";
 
-const {resolve, isOpen} = toRefs(useThemeModalStore())
-const themeStore = useThemeStore()
+const {themeStore, isOpen, resolve} = useThemeModal()
 </script>
 
 <template>
@@ -43,7 +40,7 @@ const themeStore = useThemeStore()
   </div>
 
   <div class="text-right mt-12">
-    <span class="btn btn-primary btn-outline" @click="resolve({mode: themeStore.colorMode, index: themeStore.colorIndex})"><i-ph-floppy-disk-light class="text-xl mr-2"/>Save</span>
+    <span class="btn btn-primary btn-outline" @click="resolve(null)"><i-ph-floppy-disk-light class="text-xl mr-2"/>Save</span>
   </div>
 </Modal>
 </template>

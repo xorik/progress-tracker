@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useGoalsStore } from '../stores/goals-store'
-import { useHomepage } from '../composables/home'
+import { useHomepage } from '../composables/use-home'
 import { useStatsStore } from '../stores/stats-store'
 
 const category = ref<string|null>(null)
@@ -42,7 +42,13 @@ const {createEvent} = useHomepage()
         </div>
         <div class="flex-1">
           <div class="btn-group w-full">
-            <span class="btn btn-lg btn-outline btn-primary flex-1" @click="createEvent(g.id)">Track</span>
+            <span class="btn btn-lg btn-outline btn-primary flex-1" @click="createEvent(g.id)">
+              <Icon :icon="g.icon" class="text-2xl mr-3"/>
+              Track
+            </span>
+            <span class="btn btn-lg btn-outline btn-primary px-2 md:px-4 border-l-0">
+              <i-ph-dots-three-outline-fill/>
+            </span>
           </div>
         </div>
       </div>

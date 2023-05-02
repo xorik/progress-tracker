@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import { toRefs } from 'vue'
-import { useIconModalStore } from '../stores/modal-store'
-import { useIconSelector } from '../composables/icon-selector'
-import icons from '../assets/icons.json'
+import { useIconModal } from '../composables/use-icon-modal'
 
-const {icon, resolve, isOpen} = toRefs(useIconModalStore())
-const {objectsByCategory, capitalize} = useIconSelector()
+const {objectsByCategory, capitalize, icons, isOpen, resolve} = useIconModal()
 
 type IconKey = keyof typeof icons
 </script>

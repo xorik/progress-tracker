@@ -6,12 +6,14 @@ export interface Category {
   icon: string
 }
 
+export type CreateCategoryDto = Omit<Category, "id">
+
 class CategoriesApi {
   public async get(): Promise<Category[]> {
     return httpClient.get('/api/categories')
   }
 
-  public async create(category: Omit<Category,"id">): Promise<Category> {
+  public async create(category: CreateCategoryDto): Promise<Category> {
     return httpClient.get('/api/categories', 'POST', category)
   }
 
