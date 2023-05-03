@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { useApiKeySettings } from '../../composables/use-settings'
 
-const {login, logout, key, showKey, isInvalidKey, isAuthorized} = useApiKeySettings()
+const {login, logout, maskUUID, key, showKey, isInvalidKey, isAuthorized} = useApiKeySettings()
 </script>
 
 <template>
   <h3>API Key</h3>
 
-  <div class="flex items-center gap-2">
-    <input :type="showKey ? 'text' : 'password'" v-model="key" class="input input-bordered w-full" :class="{'input-error': isInvalidKey}">
+  <div class="flex items-start sm:items-center gap-2">
+    <input v-if="!isAuthorized" :type="showKey ? 'text' : 'password'" v-model="key" class="input input-bordered w-full" :class="{'input-error': isInvalidKey}">
+    <span v-else class="flex-1 break-all">{{ showKey ? key : maskUUID(key) }}</span>
 
     <span class="btn btn-ghost" @click="showKey = !showKey">
       <i-ph-eye-light class="text-3xl"/>

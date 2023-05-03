@@ -43,6 +43,8 @@ const {editCategory, createCategory, deleteCategory} = useCategoriesSettings()
 
   <ApiKeySettings/>
 
+  <div class="mb-8"/> <!-- Some padding -->
+
   <CategoryModal/>
   <GoalModal/>
   <IconModal/>

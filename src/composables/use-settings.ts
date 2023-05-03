@@ -114,6 +114,20 @@ export function useGoalSettings() {
   return {editGoal, createGoal, deleteGoal}
 }
 
+function maskUUID(uuid: string): string {
+  const parts = uuid.split('-');
+
+  const maskedParts = parts.map((part, index) => {
+    if (index === 0) {
+      return part;
+    } else {
+      return part.replace(/[0-9a-fA-F]/g, '*');
+    }
+  });
+
+  return maskedParts.join('-');
+}
+
 export function useApiKeySettings() {
   const authStore = useAuthStore()
   const key = ref(authStore.apiKey ?? '')
@@ -141,5 +155,5 @@ export function useApiKeySettings() {
     httpClient.setApiKey(undefined)
   }
 
-  return {login, logout, key, showKey, isInvalidKey, isAuthorized}
+  return {login, logout, maskUUID, key, showKey, isInvalidKey, isAuthorized}
 }
