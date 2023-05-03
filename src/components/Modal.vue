@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useVModel } from '@vueuse/core'
-import { watch } from 'vue'
+import {ref, watch} from 'vue'
 
 const props = defineProps<{
   id: string
@@ -10,8 +10,15 @@ const props = defineProps<{
 const emit = defineEmits(['update:modelValue'])
 
 const isOpen = useVModel(props, 'modelValue', emit)
+
+const contentVisible = ref(false)
 watch(isOpen, newValue => {
   document.body.style.overflow = newValue ? "hidden" : ""
+  if (newValue) {
+    contentVisible.value = true
+  } else {
+    setTimeout(() => contentVisible.value = false, 300)
+  }
 })
 </script>
 
@@ -20,7 +27,9 @@ watch(isOpen, newValue => {
 
   <label :for="id" class="modal backdrop-blur-sm cursor-pointer">
     <label class="modal-box" :class="extraClass" for="">
-      <slot></slot>
+      <template v-if="contentVisible">
+        <slot></slot>
+      </template>
     </label>
   </label>
 </template>
