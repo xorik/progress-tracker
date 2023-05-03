@@ -3,12 +3,13 @@ import {useGoalsModal} from "../../composables/use-settings";
 import {useCategoriesStore} from "../../stores/categories-store";
 
 const categoriesStore = useCategoriesStore()
-const {pickIcon, isOpen, data, resolve} = useGoalsModal()
+const {isNew, pickIcon, isOpen, data, resolve} = useGoalsModal()
 </script>
 
 <template>
   <Modal id="goal-modal" v-model="isOpen">
-    <h3 class="mb-12">Edit goal</h3>
+    <h3 class="mb-12" v-if="isNew">Add goal</h3>
+    <h3 class="mb-12" v-else>Edit goal</h3>
 
     <div class="flex justify-center">
       <a class="btn btn-lg btn-outline" @click="pickIcon(data.icon)">
@@ -48,7 +49,10 @@ const {pickIcon, isOpen, data, resolve} = useGoalsModal()
     </div>
 
     <div class="text-right mt-12">
-      <span class="btn btn-primary btn-outline" @click="resolve(data)"><i-ph-floppy-disk-light class="text-xl mr-2"/>Save</span>
+      <span class="btn btn-primary btn-outline" @click="resolve(data)">
+        <template v-if="isNew"><i-ph-plus-light class="text-xl mr-2"/>Create</template>
+        <template v-else><i-ph-check-light class="text-xl mr-2"/>Save</template>
+      </span>
     </div>
   </Modal>
 </template>

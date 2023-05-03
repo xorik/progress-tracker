@@ -15,7 +15,7 @@ const {login, logout, key, showKey, isInvalidKey, isAuthorized} = useApiKeySetti
     </span>
 
     <span class="btn btn-outline" v-if="!isAuthorized" @click="login()">
-      <i-ph-floppy-disk-light class="text-xl mr-2"/>
+      <i-ph-check-light class="text-xl mr-2"/>
       Save
     </span>
     <span class="btn btn-outline btn-error" v-else @click="logout()">

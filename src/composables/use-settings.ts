@@ -5,7 +5,7 @@ import type {CreateGoalDto, Goal} from '../api/goals-api'
 import { httpClient } from '../api/base-api'
 import { categoriesApi } from '../api/categories-api'
 import { useAuthStore } from '../stores/auth-store'
-import {ref, toRef} from 'vue'
+import {ref, toRef, watch} from 'vue'
 import { useModal } from './use-modal'
 import {iconModal} from "./use-icon-modal";
 
@@ -30,7 +30,12 @@ export function useCategoriesModal() {
     }
   }
 
-  return {pickIcon, ...categoriesModal}
+  const isNew = ref(true)
+  watch(categoriesModal.isOpen, open => {
+    isNew.value = categoriesModal.data.value.title === ''
+  })
+
+  return {isNew, pickIcon, ...categoriesModal}
 }
 
 export function useGoalsModal() {
@@ -41,7 +46,12 @@ export function useGoalsModal() {
     }
   }
 
-  return {pickIcon, ...goalsModal}
+  const isNew = ref(true)
+  watch(goalsModal.isOpen, open => {
+    isNew.value = goalsModal.data.value.title === ''
+  })
+
+  return {isNew, pickIcon, ...goalsModal}
 }
 
 export function useCategoriesSettings() {

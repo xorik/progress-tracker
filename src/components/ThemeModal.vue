@@ -40,7 +40,7 @@ const {themeStore, isOpen, resolve} = useThemeModal()
   </div>
 
   <div class="text-right mt-12">
-    <span class="btn btn-primary btn-outline" @click="resolve(null)"><i-ph-floppy-disk-light class="text-xl mr-2"/>Save</span>
+    <span class="btn btn-primary btn-outline" @click="resolve(null)"><i-ph-check-light class="text-xl mr-2"/>Apply</span>
   </div>
 </Modal>
 </template>

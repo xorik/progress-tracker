@@ -19,10 +19,11 @@ declare module '@vue/runtime-core' {
     IPhArrowDownRightBold: typeof import('~icons/ph/arrow-down-right-bold')['default']
     IPhArrowUpRightBold: typeof import('~icons/ph/arrow-up-right-bold')['default']
     IPhCheckCircleFill: typeof import('~icons/ph/check-circle-fill')['default']
+    IPhCheckLight: typeof import('~icons/ph/check-light')['default']
     IPhCircleFill: typeof import('~icons/ph/circle-fill')['default']
     IPhDesktopLight: typeof import('~icons/ph/desktop-light')['default']
+    IPhDotsThreeOutlineFill: typeof import('~icons/ph/dots-three-outline-fill')['default']
     IPhEyeLight: typeof import('~icons/ph/eye-light')['default']
-    IPhFloppyDiskLight: typeof import('~icons/ph/floppy-disk-light')['default']
     IPhGearFineLight: typeof import('~icons/ph/gear-fine-light')['default']
     IPhMoonLight: typeof import('~icons/ph/moon-light')['default']
     IPhPaletteLight: typeof import('~icons/ph/palette-light')['default']
@@ -37,5 +38,6 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ThemeModal: typeof import('./src/components/ThemeModal.vue')['default']
+    TrackModal: typeof import('./src/components/TrackModal.vue')['default']
   }
 }
