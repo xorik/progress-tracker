@@ -4,17 +4,12 @@ import { useGoalsStore } from '../stores/goals-store'
 import { useHomepage } from '../composables/use-home'
 import { useStatsStore } from '../stores/stats-store'
 
-const category = ref<string|null>(null)
 const goalsStore = useGoalsStore()
 const statsStore = useStatsStore()
-const {createEvent} = useHomepage()
+const {category, createEvent} = useHomepage()
 </script>
 
 <template>
-  <div class="text-right">
-    <CategorySelector v-model="category"/>
-  </div>
-
   <template v-for="g in goalsStore.items">
     <div v-if="category === null || g.categoryId === category" class="my-2">
       <div class="flex items-center">
@@ -54,4 +49,6 @@ const {createEvent} = useHomepage()
       </div>
     </div>
   </template>
+
+  <TrackModal/>
 </template>

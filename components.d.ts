@@ -25,6 +25,7 @@ declare module '@vue/runtime-core' {
     IPhDotsThreeOutlineFill: typeof import('~icons/ph/dots-three-outline-fill')['default']
     IPhEyeLight: typeof import('~icons/ph/eye-light')['default']
     IPhGearFineLight: typeof import('~icons/ph/gear-fine-light')['default']
+    IPhInfoLight: typeof import('~icons/ph/info-light')['default']
     IPhMoonLight: typeof import('~icons/ph/moon-light')['default']
     IPhPaletteLight: typeof import('~icons/ph/palette-light')['default']
     IPhPencilSimpleLineLight: typeof import('~icons/ph/pencil-simple-line-light')['default']
