@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, ref, watch } from 'vue'
 import { useColorMode, useDark, useLocalStorage } from '@vueuse/core'
+import {useHead} from "unhead";
 
 const lightColors = [
   '#a8a29e',
@@ -62,8 +63,11 @@ export const useThemeStore = defineStore('theme', () => {
   watch(primaryColor, (color) => {
     document.body.style.setProperty('--p', color)
     document.body.style.setProperty('--pf', color)
-  }, {immediate: true})
 
+    useHead({
+      meta: [{name: 'theme-color', content: lightColors[previewIndex?.value ?? colorIndex.value]}],
+    })
+  }, {immediate: true})
 
   return {colorIndex, previewIndex, currentModeColors, colorMode}
 })
