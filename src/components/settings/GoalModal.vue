@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import {useGoalsModal} from "../../composables/use-settings";
 import {useCategoriesStore} from "../../stores/categories-store";
+import {ref} from "vue";
 
 const categoriesStore = useCategoriesStore()
 const {isNew, pickIcon, isOpen, data, resolve} = useGoalsModal()
+const infoVisible = ref(false)
 </script>
 
 <template>
@@ -20,7 +22,7 @@ const {isNew, pickIcon, isOpen, data, resolve} = useGoalsModal()
     <label class="label">
       <span class="label-text">Title:</span>
     </label>
-    <input type="text" v-model="data.title" class="input input-bordered w-full max-w-md" />
+    <input type="text" v-model="data.title" class="input input-bordered w-full" />
 
     <label class="label">
       <span class="label-text">Category:</span>
@@ -41,10 +43,29 @@ const {isNew, pickIcon, isOpen, data, resolve} = useGoalsModal()
       </div>
 
       <div class="flex-1">
-        <label class="label">
-          <span class="label-text">Goal value:</span>
+        <label class="label relative">
+          <span class="label-text">Weekly target:</span>
+          <span @click.prevent="infoVisible = !infoVisible" class="absolute right-0 cursor-pointer hover:scale-110"><i-ph-info class="text-2xl text-info"/></span>
         </label>
-        <input type="text" v-model.number="data.goalValue" class="input input-bordered w-full max-w-md" />
+        <input type="text" v-model.number="data.goalValue" class="input input-bordered w-full" />
+      </div>
+    </div>
+
+    <div v-show="infoVisible" class="mt-4 p-4 rounded-xl shadow-md bg-info/20">
+      <div class="flex items-center gap-3 sm:gap-6">
+        <i-ph-barbell-light class="text-3xl sm:text-4xl"/>
+        <span class="text-sm flex-1">
+          <span class="text-info">Example: Exercise daily.</span><br>
+          Goal type: <b>Maximize</b>. Set a target for the number of exercise sessions per week.
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3 sm:gap-6 mt-6">
+        <i-ph-coffee-light class="text-3xl sm:text-4xl"/>
+        <span class="text-sm flex-1">
+          <span class="text-info">Example: Reduce coffee consumption.</span><br>
+          Goal type: <b>Minimize</b>. Set target to zero or a low number.
+        </span>
       </div>
     </div>
 

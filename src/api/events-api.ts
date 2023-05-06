@@ -7,8 +7,10 @@ export interface Event {
   count: number
 }
 
+export type CreateEventDto = Omit<Event, "id">
+
 class EventsApi {
-  public async create(event: Omit<Event, "id">): Promise<Event> {
+  public async create(event: CreateEventDto): Promise<Event> {
     return httpClient.get('/api/events', 'POST', event)
   }
 }
