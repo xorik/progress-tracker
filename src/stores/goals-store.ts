@@ -9,7 +9,7 @@ export const useGoalsStore = defineStore('goals', () => {
   const data = ref<Goal[]>([])
 
   // Update goals when auth status is changed
-  watch(isAuthorized, async (isAuthorized) => {
+  watch(isAuthorized, async isAuthorized => {
     if (isAuthorized) {
       data.value = await goalsApi.get()
     } else {

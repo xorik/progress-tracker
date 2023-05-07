@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import {ref, toRef, watch} from 'vue'
 import type { StatItem } from '../api/stats-api'
 import { statsApi } from '../api/stats-api'
+import {useAuthStore} from "./auth-store";
 
 type StatRecord = Record<string, number>
 
@@ -12,13 +13,20 @@ function statToRecord(record: StatRecord, item: StatItem): StatRecord {
 }
 
 export const useStatsStore = defineStore('stats', () => {
+  const isAuthorized = toRef(useAuthStore(), 'isAuthorized')
   const today = ref<StatRecord>({})
   const week = ref<StatRecord>({})
 
-  statsApi.get().then(response => {
-    today.value = response.today.reduce(statToRecord, {});
-    week.value = response.week.reduce(statToRecord, {});
-  })
+  watch(isAuthorized, async isAuthorized => {
+    if (isAuthorized) {
+      const response = await statsApi.get()
+      today.value = response.today.reduce(statToRecord, {})
+      week.value = response.week.reduce(statToRecord, {})
+    } else {
+      today.value = {}
+      week.value = {}
+    }
+  }, {immediate: true})
 
   const updateStat = (goalId: string, count: number) => {
     if (today.value[goalId] === undefined) {
