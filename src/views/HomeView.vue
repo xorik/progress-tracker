@@ -16,7 +16,7 @@ const {category, createEvent, openEventModal} = useEvent()
         <h3 class="text-xl">{{g.title}}</h3>
       </div>
 
-      <div class="flex gap-4 text-right">
+      <div class="flex gap-4 text-right items-center">
         <div>
           <div class="stat-title">Today</div>
           <div class="stat-value">{{statsStore.today[g.id] ?? 0}}</div>

@@ -107,7 +107,7 @@ export function useGoalSettings() {
       const newGoal = await goalsModal.openModal({
         title: '',
         icon: 'flag-banner',
-        categoryId: categoriesStore.items[0].id,
+        categoryId: categoriesStore.category!,
         goalType: 'maximize',
         goalValue: 10
       })
