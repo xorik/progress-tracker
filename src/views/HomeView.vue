@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useGoalsStore } from '../stores/goals-store'
-import { useHomepage } from '../composables/use-home'
 import { useStatsStore } from '../stores/stats-store'
+import {useEvent} from "../composables/use-event";
 
 const goalsStore = useGoalsStore()
 const statsStore = useStatsStore()
-const {category, createEvent} = useHomepage()
+const {category, createEvent, openEventModal} = useEvent()
 </script>
 
 <template>
@@ -41,7 +40,7 @@ const {category, createEvent} = useHomepage()
               <Icon :icon="g.icon" class="text-2xl mr-3"/>
               Track
             </span>
-            <span class="btn btn-lg btn-outline btn-primary px-2 md:px-4 border-l-0">
+            <span class="btn btn-lg btn-outline btn-primary px-2 md:px-4 border-l-0" @click="openEventModal(g.id)">
               <i-ph-dots-three-outline-fill/>
             </span>
           </div>
@@ -50,5 +49,5 @@ const {category, createEvent} = useHomepage()
     </div>
   </template>
 
-  <TrackModal/>
+  <EventModal/>
 </template>

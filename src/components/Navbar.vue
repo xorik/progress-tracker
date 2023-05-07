@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { openThemeModal } from '../composables/use-theme'
+import {toRef} from "vue";
+import {useAuthStore} from "../stores/auth-store";
+
+const isAuthorized = toRef(useAuthStore(), 'isAuthorized')
 </script>
 
 <template>
@@ -10,7 +14,7 @@ import { openThemeModal } from '../composables/use-theme'
     <div class="flex-none">
       <ul class="menu menu-horizontal px-1">
         <li><span @click="openThemeModal"><i-ph-palette-light class="text-xl"/></span></li>
-        <li><RouterLink to="/settings"><i-ph-gear-fine-light class="text-xl"/></RouterLink></li>
+        <li><RouterLink :to="isAuthorized ? '/settings/categories' : '/settings/key'"><i-ph-gear-fine-light class="text-xl"/></RouterLink></li>
       </ul>
     </div>
   </div>

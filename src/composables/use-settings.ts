@@ -9,6 +9,14 @@ import {computed, ref, toRef, watch} from 'vue'
 import { useModal } from './use-modal'
 import {iconModal} from "./use-icon-modal";
 
+export function useSettings() {
+  const isAuthorized = toRef(useAuthStore(), 'isAuthorized')
+  const categories = toRef(useCategoriesStore(), 'items')
+  const hasCategories = computed(() => categories.value.length > 0)
+
+  return {isAuthorized, hasCategories}
+}
+
 const categoriesModal = useModal<CreateCategoryDto>({
   title: '',
   icon: 'flag-banner',
@@ -56,6 +64,7 @@ export function useGoalsModal() {
 
 export function useCategoriesSettings() {
   const categoriesStore = useCategoriesStore()
+  const categories = toRef(categoriesStore, 'items')
 
   const editCategory = async function (category: Category) {
     try {
@@ -77,7 +86,7 @@ export function useCategoriesSettings() {
     await categoriesStore.deleteCategory(id)
   }
 
-  return {editCategory, createCategory, deleteCategory}
+  return {categories, editCategory, createCategory, deleteCategory}
 }
 
 export function useGoalSettings() {

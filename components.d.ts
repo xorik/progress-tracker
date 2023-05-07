@@ -9,9 +9,9 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    ApiKeySettings: typeof import('./src/components/settings/ApiKeySettings.vue')['default']
     CategoryModal: typeof import('./src/components/settings/CategoryModal.vue')['default']
     CategorySelector: typeof import('./src/components/CategorySelector.vue')['default']
+    EventModal: typeof import('./src/components/EventModal.vue')['default']
     GoalModal: typeof import('./src/components/settings/GoalModal.vue')['default']
     Icon: typeof import('./src/components/Icon.vue')['default']
     IconModal: typeof import('./src/components/IconModal.vue')['default']
@@ -26,9 +26,12 @@ declare module '@vue/runtime-core' {
     IPhDesktopLight: typeof import('~icons/ph/desktop-light')['default']
     IPhDotsThreeOutlineFill: typeof import('~icons/ph/dots-three-outline-fill')['default']
     IPhEyeLight: typeof import('~icons/ph/eye-light')['default']
+    IPhFlagBanner: typeof import('~icons/ph/flag-banner')['default']
+    IPhFolders: typeof import('~icons/ph/folders')['default']
     IPhGearFineLight: typeof import('~icons/ph/gear-fine-light')['default']
     IPhInfo: typeof import('~icons/ph/info')['default']
     IPhInfoLight: typeof import('~icons/ph/info-light')['default']
+    IPhKey: typeof import('~icons/ph/key')['default']
     IPhMoonLight: typeof import('~icons/ph/moon-light')['default']
     IPhPaletteLight: typeof import('~icons/ph/palette-light')['default']
     IPhPencilSimpleLineLight: typeof import('~icons/ph/pencil-simple-line-light')['default']

@@ -10,7 +10,21 @@ const router = createRouter({
     },
     {
       path: '/settings',
-      component: () => import('../views/SettingsView.vue')
+      component: () => import('../views/SettingsView.vue'),
+      children: [
+        {
+          path: 'categories',
+          component: () => import('../views/settings/CategoriesView.vue')
+        },
+        {
+          path: 'goals',
+          component: () => import('../views/settings/GoalsView.vue')
+        },
+        {
+          path: 'key',
+          component: () => import('../views/settings/ApiKeyView.vue')
+        },
+      ]
     },
   ]
 })
