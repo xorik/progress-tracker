@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { useVModel } from '@vueuse/core'
 import {ref, watch} from 'vue'
 
-const props = defineProps<{
+defineProps<{
   id: string
-  modelValue: boolean
   extraClass?: string
 }>()
-const emit = defineEmits(['update:modelValue'])
 
-const isOpen = useVModel(props, 'modelValue', emit)
+const isOpen = defineModel<boolean>({required: true})
 
 const contentVisible = ref(false)
 watch(isOpen, newValue => {

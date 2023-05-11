@@ -13,7 +13,11 @@ export default defineConfig({
     stringify: true,
   },
   plugins: [
-    vue(),
+    vue({
+      script: {
+        defineModel: true
+      }
+    }),
     Components({
       resolvers: [
         IconsResolver(),
