@@ -36,8 +36,8 @@ export const useStatsStore = defineStore('stats', () => {
       week.value[goalId] = 0
     }
 
-    today.value[goalId]++
-    week.value[goalId]++
+    today.value[goalId] += count
+    week.value[goalId] += count
   }
 
   return {today, week, updateStat}

@@ -21,3 +21,12 @@ h3 {
 .btn {
   @apply normal-case;
 }
+
+.tabs.compact .tab {
+  --tab-padding: 0.5rem;
+}
+
+/* Iphone fix */
+input[type=date], input[type=time] {
+  -webkit-appearance: none;
+}

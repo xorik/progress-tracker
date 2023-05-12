@@ -5,7 +5,7 @@ import {useEvent} from "../composables/use-event";
 
 const goalsStore = useGoalsStore()
 const statsStore = useStatsStore()
-const {category, createEvent, openEventModal} = useEvent()
+const {category, trackCountLabel, createEvent, openEventModal} = useEvent()
 </script>
 
 <template>
@@ -38,7 +38,7 @@ const {category, createEvent, openEventModal} = useEvent()
           <div class="btn-group w-full">
             <span class="btn btn-lg btn-outline btn-primary flex-1" @click="createEvent(g.id)">
               <Icon :icon="g.icon" class="text-2xl mr-3"/>
-              Track
+              Track {{ trackCountLabel(g.id) }}
             </span>
             <span class="btn btn-lg btn-outline btn-primary px-2 md:px-4 border-l-0" @click="openEventModal(g.id)">
               <i-ph-dots-three-outline-fill/>

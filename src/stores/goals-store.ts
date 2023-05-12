@@ -37,5 +37,9 @@ export const useGoalsStore = defineStore('goals', () => {
     data.value.splice(index, 1)
   }
 
-  return {items: data, createGoal, updateGoal, deleteGoal}
+  const getGoalById = (id: string): Goal | undefined => {
+    return data.value.find(goal => goal.id === id)
+  }
+
+  return {items: data, getGoalById, createGoal, updateGoal, deleteGoal}
 })
