@@ -24,12 +24,14 @@ const infoVisible = ref(false)
     </label>
     <input type="text" v-model="data.title" class="input input-bordered w-full" />
 
-    <label class="label">
-      <span class="label-text">Category:</span>
-    </label>
-    <select v-model="data.categoryId" class="select select-bordered w-full">
-      <option v-for="c in categoriesStore.items" :value="c.id">{{c.title}}</option>
-    </select>
+    <template v-if="categoriesStore.items.length > 1">
+      <label class="label">
+        <span class="label-text">Category:</span>
+      </label>
+      <select v-model="data.categoryId" class="select select-bordered w-full">
+        <option v-for="c in categoriesStore.items" :value="c.id">{{c.title}}</option>
+      </select>
+    </template>
 
     <div class="flex gap-3">
       <div class="flex-1">

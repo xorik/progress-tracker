@@ -14,7 +14,7 @@ const isAuthorized = toRef(useAuthStore(), 'isAuthorized')
     <div class="flex-none">
       <ul class="menu menu-horizontal px-1">
         <li><span @click="openThemeModal"><i-ph-palette-light class="text-xl"/></span></li>
-        <li><RouterLink :to="isAuthorized ? '/settings/categories' : '/settings/key'"><i-ph-gear-fine-light class="text-xl"/></RouterLink></li>
+        <li><RouterLink :to="isAuthorized ? '/settings/goals' : '/settings/key'"><i-ph-gear-fine-light class="text-xl"/></RouterLink></li>
       </ul>
     </div>
   </div>
