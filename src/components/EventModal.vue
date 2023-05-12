@@ -15,7 +15,10 @@ const {date, time, previousValues, timeOptions, isOpen, data, goal, setTime, sub
   <label class="label">
     <span class="label-text">Value:</span>
   </label>
-  <input type="text" v-model.number="data.count" class="input input-bordered w-full">
+  <label class="input-group">
+    <input type="text" v-model.number="data.count" class="input input-bordered w-full">
+    <span v-if="goal?.unit">{{goal.unit}}</span>
+  </label>
 
   <div v-if="previousValues[data.goalId] && previousValues[data.goalId].length > 1" class="mt-4">
     <div v-for="v in previousValues[data.goalId]" @click="data.count = v" class="badge badge-lg badge-outline cursor-pointer mx-1">{{ v }}</div>

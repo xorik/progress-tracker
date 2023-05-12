@@ -87,6 +87,7 @@ export function useEventModal() {
 
 export function useEvent() {
     const statsStore = useStatsStore()
+    const goalStore = useGoalsStore()
     const category = toRef(useCategoriesStore(), 'category')
     const {lastAddedValues, addValue} = usePreviousValues()
 
@@ -125,12 +126,13 @@ export function useEvent() {
 
     const trackCountLabel = (goalId: string) => {
         const v = lastAddedValues.value[goalId]
+        const goal = goalStore.getGoalById(goalId)
 
         if (v === undefined) {
             return '...'
         }
 
-        return v === 1 ? '' : '+ ' + v
+        return v === 1 && goal?.unit === null ? '' : `+${v} ${goal?.unit ?? ''}`
     }
 
     return {category, trackCountLabel, createEvent, openEventModal}

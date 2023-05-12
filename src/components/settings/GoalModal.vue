@@ -24,32 +24,41 @@ const infoVisible = ref(false)
     </label>
     <input type="text" v-model="data.title" class="input input-bordered w-full" />
 
-    <template v-if="categoriesStore.items.length > 1">
-      <label class="label">
-        <span class="label-text">Category:</span>
-      </label>
-      <select v-model="data.categoryId" class="select select-bordered w-full">
-        <option v-for="c in categoriesStore.items" :value="c.id">{{c.title}}</option>
-      </select>
-    </template>
-
     <div class="flex gap-3">
-      <div class="flex-1">
+      <div v-if="categoriesStore.items.length > 1" class="flex-1">
         <label class="label">
-          <span class="label-text">Goal type:</span>
+          <span class="label-text">Category:</span>
         </label>
-        <select v-model="data.goalType" class="select select-bordered w-full">
-          <option value="maximize">Maximize</option>
-          <option value="minimize">Minimize</option>
+        <select v-model="data.categoryId" class="select select-bordered w-full">
+          <option v-for="c in categoriesStore.items" :value="c.id">{{c.title}}</option>
         </select>
       </div>
 
+      <div class="flex-1">
+        <label class="label">
+            <span class="label-text">Goal type:</span>
+        </label>
+        <select v-model="data.goalType" class="select select-bordered w-full">
+            <option value="maximize">Maximize</option>
+            <option value="minimize">Minimize</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex gap-3">
       <div class="flex-1">
         <label class="label relative">
           <span class="label-text">Weekly target:</span>
           <span @click.prevent="infoVisible = !infoVisible" class="absolute right-0 cursor-pointer hover:scale-110"><i-ph-info class="text-2xl text-info"/></span>
         </label>
         <input type="text" v-model.number="data.goalValue" class="input input-bordered w-full" />
+      </div>
+
+      <div class="flex-1">
+          <label class="label">
+              <span class="label-text">Unit (optional):</span>
+          </label>
+          <input type="text" v-model="data.unit" class="input input-bordered w-full" placeholder="e.g. calories, hours" />
       </div>
     </div>
 

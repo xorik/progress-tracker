@@ -1,4 +1,3 @@
-import type { Category } from './categories-api'
 import { httpClient } from './base-api'
 
 export interface Goal {
@@ -8,6 +7,7 @@ export interface Goal {
   categoryId: string
   goalType: 'maximize'|'minimize'
   goalValue: number
+  unit: string|null
 }
 
 export type CreateGoalDto = Omit<Goal, "id">

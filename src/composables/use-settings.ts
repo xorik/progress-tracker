@@ -28,6 +28,7 @@ const goalsModal = useModal<CreateGoalDto>({
   categoryId: '',
   goalType: 'maximize',
   goalValue: 0,
+  unit: null,
 })
 
 export function useCategoriesModal() {
@@ -109,7 +110,8 @@ export function useGoalSettings() {
         icon: 'flag-banner',
         categoryId: categoriesStore.category!,
         goalType: 'maximize',
-        goalValue: 10
+        goalValue: 10,
+        unit: null,
       })
 
       await goalsStore.createGoal(newGoal)
