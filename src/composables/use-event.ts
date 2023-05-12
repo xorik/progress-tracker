@@ -135,5 +135,5 @@ export function useEvent() {
         return v === 1 && goal?.unit === null ? '' : `+${v} ${goal?.unit ?? ''}`
     }
 
-    return {category, trackCountLabel, createEvent, openEventModal}
+    return {category, lastAddedValues, trackCountLabel, createEvent, openEventModal}
 }
