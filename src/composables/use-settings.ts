@@ -68,7 +68,7 @@ export function useCategoriesSettings() {
 
   const editCategory = async function (category: Category) {
     try {
-      const savedCategory = await categoriesModal.openModal(category)
+      const savedCategory = await categoriesModal.openModal({...category})
       await categoriesStore.updateCategory({id: category.id, ...savedCategory})
     } catch (e) {
     }
@@ -96,7 +96,7 @@ export function useGoalSettings() {
 
   const editGoal = async function (id: string, goal: Goal) {
     try {
-      const savedCategory = await goalsModal.openModal(goal)
+      const savedCategory = await goalsModal.openModal({...goal})
       await goalsStore.updateGoal(id, savedCategory)
     } catch (e) {
     }
