@@ -19,7 +19,7 @@ const {category, lastAddedValues, trackCountLabel, createEvent, openEventModal} 
       <div class="flex gap-4 text-right items-center">
         <div>
           <div class="stat-title">Today</div>
-          <div class="stat-value">{{statsStore.today[g.id] ?? 0}}</div>
+          <div class="stat-value font-semibold">{{statsStore.today[g.id] ?? 0}}</div>
           <div class="stat-desc">
             <div class="flex">
               <i-ph-trophy-bold/>
@@ -31,14 +31,16 @@ const {category, lastAddedValues, trackCountLabel, createEvent, openEventModal} 
         </div>
         <div>
           <div class="stat-title">Week</div>
-          <div class="stat-value">{{statsStore.week[g.id] ?? 0}}</div>
+          <div class="stat-value font-semibold">{{statsStore.week[g.id] ?? 0}}</div>
           <div class="stat-desc">?%</div>
         </div>
         <div class="flex-1">
           <div class="btn-group w-full">
-            <span class="btn btn-lg btn-outline btn-primary flex-1" @click="createEvent(g.id)">
-              <Icon :icon="g.icon" class="text-2xl mr-3"/>
-              Track {{ trackCountLabel(g.id) }}
+            <span class="btn btn-lg btn-outline btn-primary flex-1 flex-nowrap flex flex-grow w-0 px-2" @click="createEvent(g.id)">
+              <Icon :icon="g.icon" class="text-2xl mr-1 sm:mr-3 flex-shrink-0"/>
+              <span class="flex min-w-0">
+                <span class="truncate w-full">Track {{ trackCountLabel(g.id) }}</span>
+              </span>
             </span>
             <span v-if="lastAddedValues[g.id] !== undefined" class="btn btn-lg btn-outline btn-primary px-2 md:px-4 border-l-0" @click="openEventModal(g.id)">
               <i-ph-dots-three-outline-fill/>
