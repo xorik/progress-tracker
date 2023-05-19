@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import {usePwaRefresh} from "./composables/use-pwa-refresh";
+
+usePwaRefresh()
+</script>
+
 <template>
   <Navbar/>
 

@@ -3,7 +3,8 @@ import {computed} from "vue";
 
 export const enum ConfirmType {
     Delete,
-    Logout
+    Logout,
+    NewVersion,
 }
 
 interface ConfirmData {
@@ -19,15 +20,14 @@ export const confirmModal = useModal<ConfirmData, boolean>({
 })
 
 export function useConfirmModal() {
-    const buttonText = computed(() => {
-        if (confirmModal.data.value.type === ConfirmType.Delete) {
-            return 'Delete'
-        }
+    const textMap = {
+        [ConfirmType.Delete]: 'Delete',
+        [ConfirmType.Logout]: 'Logout',
+        [ConfirmType.NewVersion]: 'Reload',
+    };
 
-        if (confirmModal.data.value.type === ConfirmType.Logout) {
-            return 'Logout'
-        }
-    })
+    const buttonText = computed(() => textMap[confirmModal.data.value.type])
+    const buttonClass = computed(() => confirmModal.data.value.type === ConfirmType.NewVersion ? 'btn-primary' : 'btn-error')
 
-    return {buttonText, ...confirmModal}
+    return {buttonText, buttonClass, ...confirmModal}
 }

@@ -27,7 +27,7 @@ export default defineConfig({
       autoInstall: true,
     }),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
       manifest: {
         name: 'Progress tracker',
         short_name: 'Tracker',
@@ -53,6 +53,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
+          if (id.includes('/SettingsView.vue') || id.includes('/views/settings/')) {
+            return 'settings'
+          }
+
           if (id.includes('src/assets/icons.json')) {
             return 'icons'
           }
