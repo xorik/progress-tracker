@@ -6,7 +6,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: HomeView
+      component: HomeView,
+      meta: {showCategories: true},
     },
     {
       path: '/settings',
@@ -18,7 +19,8 @@ const router = createRouter({
         },
         {
           path: 'goals',
-          component: () => import('../views/settings/GoalsView.vue')
+          component: () => import('../views/settings/GoalsView.vue'),
+          meta: {showCategories: true},
         },
         {
           path: 'key',
