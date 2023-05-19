@@ -13,6 +13,6 @@ const {categories, editCategory, createCategory, deleteCategory} = useCategories
     <Icon :icon="c.icon" class="text-3xl"/>
     <span class="flex-1">{{c.title}}</span>
     <span class="btn btn-ghost px-2" @click="editCategory(c)"><i-ph-pencil-simple-line-light class="text-xl"/></span>
-    <span class="btn btn-ghost px-2 text-error" @click="deleteCategory(c.id)"><i-ph-trash-light class="text-xl"/></span>
+    <span class="btn btn-ghost px-2 text-error" @click="deleteCategory(c)"><i-ph-trash-light class="text-xl"/></span>
   </div>
 </template>

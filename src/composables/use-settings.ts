@@ -1,13 +1,14 @@
-import { useCategoriesStore } from '../stores/categories-store'
-import type { Category, CreateCategoryDto } from '../api/categories-api'
-import { useGoalsStore } from '../stores/goals-store'
+import {useCategoriesStore} from '../stores/categories-store'
+import type {Category, CreateCategoryDto} from '../api/categories-api'
+import {categoriesApi} from '../api/categories-api'
+import {useGoalsStore} from '../stores/goals-store'
 import type {CreateGoalDto, Goal} from '../api/goals-api'
-import { httpClient } from '../api/base-api'
-import { categoriesApi } from '../api/categories-api'
-import { useAuthStore } from '../stores/auth-store'
+import {httpClient} from '../api/base-api'
+import {useAuthStore} from '../stores/auth-store'
 import {computed, ref, toRef, watch} from 'vue'
-import { useModal } from './use-modal'
+import {useModal} from './use-modal'
 import {iconModal} from "./use-icon-modal";
+import {confirmModal, ConfirmType} from "./use-confirm";
 
 export function useSettings() {
   const isAuthorized = toRef(useAuthStore(), 'isAuthorized')
@@ -83,8 +84,17 @@ export function useCategoriesSettings() {
     }
   }
 
-  const deleteCategory = async function (id: string) {
-    await categoriesStore.deleteCategory(id)
+  const deleteCategory = async function (category: Category) {
+    try {
+      await confirmModal.openModal({
+        header: 'Delete category?',
+        text: `Do you want to delete category "${category.title}"?`,
+        type: ConfirmType.Delete,
+      })
+
+      await categoriesStore.deleteCategory(category.id)
+    } catch (e) {
+    }
   }
 
   return {categories, editCategory, createCategory, deleteCategory}
@@ -119,8 +129,17 @@ export function useGoalSettings() {
     }
   }
 
-  const deleteGoal = async function (id: string) {
-    await goalsStore.deleteGoal(id)
+  const deleteGoal = async function (goal: Goal) {
+    try {
+      await confirmModal.openModal({
+        header: 'Delete goal?',
+        text: `Do you want to delete goal "${goal.title}"?`,
+        type: ConfirmType.Delete,
+      })
+
+      await goalsStore.deleteGoal(goal.id)
+    } catch (e) {
+    }
   }
 
   return {goals, editGoal, createGoal, deleteGoal}
@@ -162,9 +181,18 @@ export function useApiKeySettings() {
   }
 
   const logout = async function() {
-    key.value = ''
-    authStore.apiKey = null
-    httpClient.setApiKey(undefined)
+    try {
+      await confirmModal.openModal({
+        header: 'Logout?',
+        text: `Do you want to log out?`,
+        type: ConfirmType.Logout,
+      })
+
+      key.value = ''
+      authStore.apiKey = null
+      httpClient.setApiKey(undefined)
+    } catch (e) {
+    }
   }
 
   return {login, logout, maskUUID, key, showKey, isInvalidKey, isAuthorized}

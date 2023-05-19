@@ -14,7 +14,7 @@ const {goals, editGoal, createGoal, deleteGoal} = useGoalSettings()
     <Icon :icon="g.icon" class="text-3xl"/>
     <span class="flex-1">{{g.title}}</span>
     <span class="btn btn-ghost px-2" @click="editGoal(g.id, g)"><i-ph-pencil-simple-line-light class="text-xl"/></span>
-    <span class="btn btn-ghost px-2 text-error" @click="deleteGoal(g.id)"><i-ph-trash-light class="text-xl"/></span>
+    <span class="btn btn-ghost px-2 text-error" @click="deleteGoal(g)"><i-ph-trash-light class="text-xl"/></span>
   </div>
   <i v-else class="flex items-center my-2"><i-ph-info-light class="text-2xl mr-2"/>No goals for the current category yet</i>
 </template>

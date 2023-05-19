@@ -2,10 +2,10 @@ import { ref, unref, watch} from 'vue'
 import type { MaybeRef } from '@vueuse/core'
 
 
-export function useModal<T> (initialData: MaybeRef<T>) {
+export function useModal<T, V=T> (initialData: MaybeRef<T>) {
   const data = ref(initialData)
   const isOpen = ref(false)
-  const resolve = ref((value: T) => {})
+  const resolve = ref((value: V) => {})
   const reject = ref(() => {})
   let isResolved = false
 
@@ -15,13 +15,13 @@ export function useModal<T> (initialData: MaybeRef<T>) {
     }
   })
 
-  const openModal = async function (initData: MaybeRef<T>): Promise<T> {
+  const openModal = async function (initData: MaybeRef<T>): Promise<V> {
     data.value = unref(initData)
     isOpen.value = true
     isResolved = false
 
     return new Promise((res, rej) => {
-      resolve.value = function (value: T) {
+      resolve.value = function (value: V) {
         isResolved = true
         isOpen.value = false
         res(value)

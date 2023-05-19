@@ -6,6 +6,6 @@
   </div>
 
   <ThemeModal/>
-
+  <Confirm/>
   <CategorySelector/>
 </template>
