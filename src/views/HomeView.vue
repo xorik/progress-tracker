@@ -9,8 +9,8 @@ const {category, lastAddedValues, trackCountLabel, createEvent, openEventModal} 
 </script>
 
 <template>
-  <template v-for="g in goalsStore.items">
-    <div v-if="category === null || g.categoryId === category" class="my-2">
+  <template v-for="g in goalsStore.currentGoals">
+    <div class="my-2">
       <div class="flex items-center">
         <Icon :icon="g.icon" class="text-2xl mr-3 text-primary"/>
         <h3 class="text-xl">{{g.title}}</h3>

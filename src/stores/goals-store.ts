@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
-import {ref, toRef, watch} from 'vue'
+import {computed, ref, toRaw, toRef, watch, watchEffect} from 'vue'
 import type { CreateGoalDto, Goal } from '../api/goals-api'
 import { goalsApi } from '../api/goals-api'
 import { useAuthStore } from './auth-store'
+import {useCategoriesStore} from "./categories-store";
 
 export const useGoalsStore = defineStore('goals', () => {
   const isAuthorized = toRef(useAuthStore(), 'isAuthorized')
+  const currentCategory = toRef(useCategoriesStore(), 'category')
   const data = ref<Goal[]>([])
 
   // Update goals when auth status is changed
@@ -41,5 +43,21 @@ export const useGoalsStore = defineStore('goals', () => {
     return data.value.find(goal => goal.id === id)
   }
 
-  return {items: data, getGoalById, createGoal, updateGoal, deleteGoal}
+  const currentGoals = computed(
+    () => data.value
+      .filter(g => g.categoryId === currentCategory.value)
+      .sort((a, b) => a.pos - b.pos)
+  )
+
+  const sortGoals = async (oldIndex: number, newIndex: number) => {
+    const ids = currentGoals.value.map(g => g.id)
+
+    const [removed] = ids.splice(oldIndex, 1);
+    ids.splice(newIndex, 0, removed);
+
+    await goalsApi.sort(ids)
+    ids.forEach((id, index) => getGoalById(id)!.pos = index)
+  }
+
+  return {items: data, currentGoals, sortGoals, getGoalById, createGoal, updateGoal, deleteGoal}
 })

@@ -8,9 +8,10 @@ export interface Goal {
   goalType: 'maximize'|'minimize'
   goalValue: number
   unit: string|null
+  pos: number
 }
 
-export type CreateGoalDto = Omit<Goal, "id">
+export type CreateGoalDto = Omit<Goal, "id" | "pos">
 
 class GoalsApi {
   public async get(): Promise<Goal[]> {
@@ -27,6 +28,10 @@ class GoalsApi {
 
   public async delete(id: string): Promise<void> {
     return httpClient.get('/api/goals/' + id, 'DELETE')
+  }
+
+  public async sort(ids: string[]): Promise<void> {
+    return httpClient.get('/api/goals/sort', 'POST', ids)
   }
 }
 

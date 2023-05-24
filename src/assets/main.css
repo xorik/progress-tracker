@@ -30,3 +30,7 @@ h3 {
 input[type=date], input[type=time] {
   -webkit-appearance: none;
 }
+
+.sortable-ghost {
+  @apply bg-primary/30 !important;
+}

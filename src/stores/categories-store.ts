@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import {ref, toRef, watch} from 'vue'
+import {computed, ref, toRef, watch} from 'vue'
 import type { Category, CreateCategoryDto } from '../api/categories-api'
 import { categoriesApi } from '../api/categories-api'
 import { useAuthStore } from './auth-store'
@@ -9,6 +9,7 @@ export const useCategoriesStore = defineStore('categories', () => {
   const isAuthorized = toRef(useAuthStore(), 'isAuthorized')
   const data = ref<Category[]>([])
   const category = useLocalStorage<string|null>('category', null)
+  const itemsSorted = computed(() => data.value.sort((a, b) => a.pos - b.pos))
 
   // Update categories when auth status is changed
   watch(isAuthorized, async (isAuthorized) => {
@@ -30,10 +31,10 @@ export const useCategoriesStore = defineStore('categories', () => {
     category.value = newCategory.id
   }
 
-  const updateCategory = async function (category: Category) {
-    const updatedCategory = await categoriesApi.update(category)
+  const updateCategory = async function (id: string, category: CreateCategoryDto) {
+    const updatedCategory = await categoriesApi.update(id, category)
 
-    const index = data.value.findIndex(i => i.id === category.id)
+    const index = data.value.findIndex(i => i.id === id)
     data.value[index] = updatedCategory
   }
 
@@ -47,5 +48,15 @@ export const useCategoriesStore = defineStore('categories', () => {
     }
   }
 
-  return {items: data, category, createCategory, updateCategory, deleteCategory}
+  const sortCategories = async (oldIndex: number, newIndex: number) => {
+    const ids = itemsSorted.value.map(c => c.id)
+
+    const [removed] = ids.splice(oldIndex, 1);
+    ids.splice(newIndex, 0, removed);
+
+    await categoriesApi.sort(ids)
+    ids.forEach((id, index) => data.value.find(c => c.id === id)!.pos = index)
+  }
+
+  return {items: itemsSorted, category, sortCategories, createCategory, updateCategory, deleteCategory}
 })

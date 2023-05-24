@@ -34,6 +34,7 @@ declare module '@vue/runtime-core' {
     IPhInfo: typeof import('~icons/ph/info')['default']
     IPhInfoLight: typeof import('~icons/ph/info-light')['default']
     IPhKey: typeof import('~icons/ph/key')['default']
+    IPhListLight: typeof import('~icons/ph/list-light')['default']
     IPhMoonLight: typeof import('~icons/ph/moon-light')['default']
     IPhPackageLight: typeof import('~icons/ph/package-light')['default']
     IPhPaletteLight: typeof import('~icons/ph/palette-light')['default']

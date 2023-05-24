@@ -6,9 +6,11 @@ import type {CreateGoalDto, Goal} from '../api/goals-api'
 import {httpClient} from '../api/base-api'
 import {useAuthStore} from '../stores/auth-store'
 import {computed, ref, toRef, watch} from 'vue'
+import type {Ref} from 'vue'
 import {useModal} from './use-modal'
 import {iconModal} from "./use-icon-modal";
 import {confirmModal, ConfirmType} from "./use-confirm";
+import {useSortable} from "@vueuse/integrations/useSortable";
 
 export function useSettings() {
   const isAuthorized = toRef(useAuthStore(), 'isAuthorized')
@@ -64,14 +66,22 @@ export function useGoalsModal() {
   return {isNew, pickIcon, ...goalsModal}
 }
 
-export function useCategoriesSettings() {
+export function useCategoriesSettings(el: Ref<HTMLElement | null>) {
   const categoriesStore = useCategoriesStore()
   const categories = toRef(categoriesStore, 'items')
+
+  useSortable(el, categories, {
+    handle: '.handle',
+    animation: 150,
+    onUpdate: (e: {oldIndex: number, newIndex: number}) => {
+      categoriesStore.sortCategories(e.oldIndex, e.newIndex)
+    }
+  })
 
   const editCategory = async function (category: Category) {
     try {
       const savedCategory = await categoriesModal.openModal({...category})
-      await categoriesStore.updateCategory({id: category.id, ...savedCategory})
+      await categoriesStore.updateCategory(category.id, savedCategory)
     } catch (e) {
     }
   }
@@ -100,10 +110,18 @@ export function useCategoriesSettings() {
   return {categories, editCategory, createCategory, deleteCategory}
 }
 
-export function useGoalSettings() {
+export function useGoalSettings(el: Ref<HTMLElement | null>) {
   const categoriesStore = useCategoriesStore()
   const goalsStore = useGoalsStore()
-  const goals = computed(() => goalsStore.items.filter(g => g.categoryId === categoriesStore.category))
+  const goals = toRef(goalsStore, 'currentGoals')
+
+  useSortable(el, goals, {
+    handle: '.handle',
+    animation: 150,
+    onUpdate: (e: {oldIndex: number, newIndex: number}) => {
+      goalsStore.sortGoals(e.oldIndex, e.newIndex)
+    }
+  })
 
   const editGoal = async function (id: string, goal: Goal) {
     try {
