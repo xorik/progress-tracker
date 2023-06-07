@@ -1,11 +1,12 @@
 import {useModal} from "./use-modal";
 import type {CreateEventDto} from "../api/events-api";
 import {useStatsStore} from "../stores/stats-store";
-import {computed, ref, toRef, watch, watchEffect} from "vue";
+import {computed, ref, toRaw, toRef, watch, watchEffect} from "vue";
 import {useCategoriesStore} from "../stores/categories-store";
 import {eventsApi} from "../api/events-api";
 import {usePreviousValues} from "./use-previous-values";
 import {useGoalsStore} from "../stores/goals-store";
+import {useNotificationsStore} from "../stores/notifications-store";
 
 const eventModal = useModal<CreateEventDto>({
     goalId: '',
@@ -89,7 +90,28 @@ export function useEvent() {
     const statsStore = useStatsStore()
     const goalStore = useGoalsStore()
     const category = toRef(useCategoriesStore(), 'category')
+    const notificationsStore = useNotificationsStore()
     const {lastAddedValues, addValue} = usePreviousValues()
+
+    const trackEvent = async (data: CreateEventDto) => {
+        const event = await eventsApi.create(data)
+        statsStore.updateStat(data.goalId, data.count)
+        const goal = goalStore.getGoalById(data.goalId)
+
+        notificationsStore.addNotification(
+          goal?.icon ?? 'flag-banner',
+          `Event "${goal?.title}" was tracked`,
+          [
+              {
+                text: 'Undo',
+                action: () => {
+                    eventsApi.delete(event.id)
+                    statsStore.updateStat(data.goalId, -data.count)
+                }
+              }
+          ]
+        )
+    }
 
     const openEventModal = async (goalId: string) => {
         const count= lastAddedValues.value[goalId] ?? 1
@@ -101,9 +123,8 @@ export function useEvent() {
                 goalId,
             })
 
-            await eventsApi.create(data)
-            statsStore.updateStat(goalId, data.count)
-            addValue(goalId, data.count)
+            await trackEvent(data)
+            addValue(goalId, count)
         } catch (e) {
         }
     }
@@ -115,13 +136,11 @@ export function useEvent() {
             return
         }
 
-        await eventsApi.create({
+        await trackEvent({
             count,
             time: new Date().toISOString(),
             goalId,
         })
-
-        statsStore.updateStat(goalId, count)
     }
 
     const trackCountLabel = (goalId: string) => {

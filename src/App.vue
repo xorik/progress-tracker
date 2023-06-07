@@ -14,4 +14,5 @@ usePwaRefresh()
   <ThemeModal/>
   <Confirm/>
   <CategorySelector/>
+  <NotificationArea/>
 </template>

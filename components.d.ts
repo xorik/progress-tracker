@@ -48,6 +48,7 @@ declare module '@vue/runtime-core' {
     IPhWarningLight: typeof import('~icons/ph/warning-light')['default']
     Modal: typeof import('./src/components/Modal.vue')['default']
     Navbar: typeof import('./src/components/Navbar.vue')['default']
+    NotificationArea: typeof import('./src/components/NotificationArea.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     ThemeModal: typeof import('./src/components/ThemeModal.vue')['default']

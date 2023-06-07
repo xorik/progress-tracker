@@ -13,6 +13,10 @@ class EventsApi {
   public async create(event: CreateEventDto): Promise<Event> {
     return httpClient.get('/api/events', 'POST', event)
   }
+
+  public async delete(id: string): Promise<void> {
+    return httpClient.get('/api/events/' + id, 'DELETE')
+  }
 }
 
 export const eventsApi = new EventsApi()
