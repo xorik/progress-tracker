@@ -124,7 +124,7 @@ export function useEvent() {
             })
 
             await trackEvent(data)
-            addValue(goalId, count)
+            addValue(goalId, data.count)
         } catch (e) {
         }
     }
